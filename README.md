@@ -27,6 +27,7 @@ Write anything else we need to do to run your application here.
 
 ## Resouces Used
 
--   Semantic UI - https://react.semantic-ui.com
+-   https://react.semantic-ui.com
 -   https://reacttraining.com/react-router/web/guides/scroll-restoration
--
+-   https://www.npmjs.com/package/react-image
+-   https://reacttraining.com/react-router/web/example/url-params
