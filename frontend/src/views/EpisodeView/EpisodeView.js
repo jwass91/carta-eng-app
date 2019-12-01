@@ -1,22 +1,30 @@
 import React, { Component } from "react";
 import { Header, Image, Segment, Dimmer, Loader } from "semantic-ui-react";
 import { Navbar } from "../../components";
+import { ErrorView } from "../../views";
 
 class EpisodeView extends Component {
     state = {
-        episodeData: null
+        episodeData: null,
+        error: false
     };
 
     componentDidMount() {
         fetch(`http://127.0.0.1:5000/episodes/${this.props.season}/${this.props.number}/`)
             .then(response => response.json())
-            .then(episodeData => this.setState({ episodeData }));
+            .then(episodeData => this.setState({ episodeData }))
+            .catch(() => {
+                this.setState({ error: true });
+            });
     }
 
     componentDidUpdate() {
         fetch(`http://127.0.0.1:5000/episodes/${this.props.season}/${this.props.number}/`)
             .then(response => response.json())
-            .then(episodeData => this.setState({ episodeData }));
+            .then(episodeData => this.setState({ episodeData }))
+            .catch(() => {
+                this.setState({ error: true });
+            });
     }
 
     render() {
@@ -46,7 +54,7 @@ class EpisodeView extends Component {
         return (
             <div style={{ height: "100%" }}>
                 <Navbar />
-                {episodeDetail}
+                {this.state.error ? <ErrorView /> : episodeDetail}
             </div>
         );
     }

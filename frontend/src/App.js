@@ -2,7 +2,7 @@ import React from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import "./App.css";
 import { Container } from "semantic-ui-react";
-import { EpisodeView, HomeView, SeasonView } from "./views";
+import { EpisodeView, HomeView, SeasonView, ErrorView } from "./views";
 import { ScrollToTop } from "./components";
 
 function App() {
@@ -31,8 +31,14 @@ function App() {
                         />
                         <Route
                             path="/"
+                            exact
                             render={props => {
                                 return <HomeView />;
+                            }}
+                        />
+                        <Route
+                            render={props => {
+                                return <ErrorView navbar />;
                             }}
                         />
                     </Switch>

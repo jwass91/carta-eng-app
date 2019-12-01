@@ -1,16 +1,21 @@
 import React, { Component } from "react";
 import { Header, Card, Dimmer, Loader } from "semantic-ui-react";
 import { Navbar, EpisodeCard } from "../../components";
+import { ErrorView } from "../../views";
 
 class SeasonView extends Component {
     state = {
-        episodeData: null
+        episodeData: null,
+        error: false
     };
 
     componentDidMount() {
         fetch(`http://127.0.0.1:5000/episodes/${this.props.number}/`)
             .then(response => response.json())
-            .then(episodeData => this.setState({ episodeData }));
+            .then(episodeData => this.setState({ episodeData }))
+            .catch(() => {
+                this.setState({ error: true });
+            });
     }
 
     render() {
@@ -38,10 +43,16 @@ class SeasonView extends Component {
         return (
             <div>
                 <Navbar />
-                <Header as="h1" dividing>
-                    Season {this.props.number} Episodes
-                </Header>
-                <Card.Group itemsPerRow={4}>{episodes}</Card.Group>
+                {this.state.error ? (
+                    <ErrorView />
+                ) : (
+                    <div>
+                        <Header as="h1" dividing>
+                            Season {this.props.number} Episodes
+                        </Header>
+                        <Card.Group itemsPerRow={4}>{episodes}</Card.Group>
+                    </div>
+                )}
             </div>
         );
     }
